@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(process.env.DATABASE_URL);
+const sequelize = new Sequelize(process.env.DATABASE_URL,   define: {timestamps: false});
 
 sequelize
   .authenticate()
