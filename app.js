@@ -3,7 +3,9 @@ const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(process.env.DATABASE_URL, {define: {timestamps: false}});
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  define: { timestamps: false },
+});
 
 sequelize
   .authenticate()
@@ -24,7 +26,12 @@ const User = sequelize.define("user", {
 });
 
 app.get("/pageview", async (req, res) => {
-    console.log({req, res})
+  const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
+  User.findOrCreate({ where: { username: ip }, defaults: { visits: 0 } })
+    .then(([user, created]) => {
+      return user.increment("visits", { by: 1 });
+    })
+    .then(console.log);
 });
 
 app.get("/tables/users", async (req, res) => {
