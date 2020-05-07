@@ -2,11 +2,16 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(process.env.DATABASE_URL);
 
-const { Pool } = require("pg");
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
+const User = sequelize.define("user", {
+  username: {
+    type: Sequelize.STRING,
+  },
+  visits: {
+    type: Sequelize.INTEGER,
+  },
 });
 
 app.get("/pageview", async (req, res) => {
@@ -23,16 +28,9 @@ app.get("/pageview", async (req, res) => {
 });
 
 app.get("/tables/users", async (req, res) => {
-  try {
-    const client = await pool.connect();
-    const result = await client.query("SELECT * FROM users");
-    const results = { results: result ? result.rows : null };
-    res.render("table/users", results);
-    client.release();
-  } catch (err) {
-    console.error(err);
-    res.send("Error " + err);
-  }
+  User.findAll().then((users) => {
+    console.log("All users:", JSON.stringify(users, null, 4));
+  });
 });
 
 const server = app.listen(PORT, function () {
