@@ -1,0 +1,32 @@
+{
+  "name": "backend-jwsharpe",
+  "version": "0.1.0",
+  "description": "backend testing",
+  "engines": {
+    "node": "12.x"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "pg": "^8.0.3"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwsharpe/backend-jwsharpe.git"
+  },
+  "author": "jwsharpe",
+  "bugs": {
+    "url": "https://github.com/jwsharpe/backend-jwsharpe/issues"
+  },
+  "homepage": "https://github.com/jwsharpe/backend-jwsharpe#readme"
+}
