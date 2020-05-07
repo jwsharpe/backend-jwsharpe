@@ -4,7 +4,7 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  define: { timestamps: false },
+  define: { underscored: true },
 });
 
 sequelize
@@ -17,13 +17,20 @@ sequelize
   });
 
 const User = sequelize.define("user", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
   username: {
     type: Sequelize.STRING,
   },
   visits: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.INTEGER, 
+    defaultValue: 1,
   },
 });
+
 
 app.get("/pageview", async (req, res) => {
   const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;

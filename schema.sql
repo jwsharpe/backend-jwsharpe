@@ -1,1 +1,1 @@
-CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, visits INTEGER);
+CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, visits INTEGER, created_at DATE, updated_at DATE);
