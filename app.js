@@ -10,7 +10,6 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 sequelize
   .authenticate()
   .then(() => {
-    console.log("URL: ", process.env.DATABASE_URL)
     console.log("Connection has been established successfully.");
   })
   .catch((err) => {
@@ -32,7 +31,6 @@ app.get("/pageview", async (req, res) => {
     .then(([user, created]) => {
       return user.increment("visits", { by: 1 });
     })
-    .then(console.log);
 });
 
 app.get("/tables/users", async (req, res) => {
