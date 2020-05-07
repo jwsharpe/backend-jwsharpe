@@ -17,27 +17,24 @@ sequelize
   });
 
 const User = sequelize.define("user", {
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
   username: {
     type: Sequelize.STRING,
   },
   visits: {
-    type: Sequelize.INTEGER, 
+    type: Sequelize.INTEGER,
     defaultValue: 1,
   },
 });
 
+User.sync({force: true})
 
 app.get("/pageview", async (req, res) => {
   const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
-  User.findOrCreate({ where: { username: ip }, defaults: { visits: 0 } })
-    .then(([user, created]) => {
+  User.findOrCreate({ where: { username: ip }, defaults: { visits: 0 } }).then(
+    ([user, created]) => {
       return user.increment("visits", { by: 1 });
-    })
+    }
+  );
 });
 
 app.get("/tables/users", async (req, res) => {
