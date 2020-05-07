@@ -38,7 +38,7 @@ app.get("/pageview", async (req, res) => {
     ([user, created]) => {
       return user.increment("visits", { by: 1 });
     }
-  );
+  ).then(console.log);
 });
 
 app.get("/tables/users", async (req, res) => {
