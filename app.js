@@ -10,6 +10,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 sequelize
   .authenticate()
   .then(() => {
+    console.log("URL: ", process.env.DATABASE_URL)
     console.log("Connection has been established successfully.");
   })
   .catch((err) => {

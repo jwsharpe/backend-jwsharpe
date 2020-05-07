@@ -1,1 +1,1 @@
-CREATE TABLE users(id INT PRIMARY KEY, username VARCHAR(255), visits INT);
+CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, visits INTEGER);
