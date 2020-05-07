@@ -5,6 +5,15 @@ const PORT = process.env.PORT || 5000;
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(process.env.DATABASE_URL);
 
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch((err) => {
+    console.error("Unable to connect to the database:", err);
+  });
+
 const User = sequelize.define("user", {
   username: {
     type: Sequelize.STRING,
