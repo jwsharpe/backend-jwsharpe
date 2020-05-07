@@ -24,16 +24,7 @@ const User = sequelize.define("user", {
 });
 
 app.get("/pageview", async (req, res) => {
-  // try {
-  //     const client = await pool.connect()
-  //     const result = await client.query('SELECT * FROM test_table');
-  //     const results = { 'results': (result) ? result.rows : null};
-  //     res.render('pages/db', results );
-  //     client.release();
-  // } catch (err) {
-  //     console.error(err);
-  //     res.send("Error " + err);
-  // }
+    console.log({req, res})
 });
 
 app.get("/tables/users", async (req, res) => {
