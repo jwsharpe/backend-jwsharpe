@@ -41,8 +41,8 @@ app.get("/pageview", async (req, res) => {
   ).then(user => {
       const { username, visits } = user;
       console.log(`${username}: ${visits} visit(s).`)
+      res.send(`visits ${visit(s)}.`)
   });
-  return "";
 });
 
 app.get("/tables/users", async (req, res) => {
