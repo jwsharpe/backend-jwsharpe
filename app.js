@@ -26,8 +26,6 @@ const User = sequelize.define("user", {
   },
 });
 
-User.sync({force: true})
-
 app.get("/pageview", async (req, res) => {
   const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
   User.findOrCreate({ where: { username: ip }, defaults: { visits: 0 } }).then(
