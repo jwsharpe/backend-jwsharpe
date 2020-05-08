@@ -41,6 +41,7 @@ app.get("/pageview", async (req, res) => {
   const syncedUser = await user.increment("visits", { by: 1 });
   const { username, visits } = syncedUser;
   console.log(`${username}: ${visits} visit(s).`);
+  console.log('host ', req.headers.host)
   res.send(`${visits} visit(s).`);
 });
 
