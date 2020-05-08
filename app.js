@@ -34,21 +34,14 @@ const User = sequelize.define("user", {
 
 app.get("/pageview", async (req, res) => {
   const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
-  User.findOrCreate({ where: { username: ip }, defaults: { visits: 0 } }).then(
-    ([user, created]) => {
-      return user.increment("visits", { by: 1 });
-    }
-  ).then(user => {
-      const { username, visits } = user;
-      console.log(`${username}: ${visits} visit(s).`)
-      res.send(`${visits} visit(s).`)
+  await [ user ] = User.findOrCreate({
+    where: { username: ip },
+    defaults: { visits: 0 },
   });
-});
-
-app.get("/tables/users", async (req, res) => {
-  User.findAll().then((users) => {
-    console.log("All users:", JSON.stringify(users, null, 4));
-  });
+  await syncedUser = user.increment("visits", { by: 1 });
+  const { username, visits } = syncedUser;
+  console.log(`${username}: ${visits} visit(s).`);
+  res.send(`${visits} visit(s).`);
 });
 
 const server = app.listen(PORT, function () {
