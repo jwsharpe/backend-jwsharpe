@@ -34,10 +34,11 @@ const User = sequelize.define("user", {
 
 app.get("/pageview", async (req, res) => {
   const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
-  await [ user ] = User.findOrCreate({
+  await payload = User.findOrCreate({
     where: { username: ip },
     defaults: { visits: 0 },
   });
+  const [user] = payload;
   await syncedUser = user.increment("visits", { by: 1 });
   const { username, visits } = syncedUser;
   console.log(`${username}: ${visits} visit(s).`);
