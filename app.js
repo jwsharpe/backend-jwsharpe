@@ -32,6 +32,19 @@ const User = sequelize.define("user", {
   },
 });
 
+app.get("/gitview", async (req, res) => {
+  const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
+  const [ user ] = await User.findOrCreate({
+    where: { username: ip },
+    defaults: { visits: 0 },
+  });
+  const syncedUser = await user.increment("git_visits", { by: 1 });
+  const { username, gitVisits } = syncedUser;
+  console.log(`${username}: ${gitVisits} visit(s).`);
+  console.log('host ', req.headers.host)
+  res.send(`${gitVisits} visit(s).`);
+});
+
 app.get("/pageview", async (req, res) => {
   const ip = req.header("x-forwarded-for") || req.connection.remoteAddress;
   const [ user ] = await User.findOrCreate({
