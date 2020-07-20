@@ -39,10 +39,10 @@ app.get("/gitview", async (req, res) => {
     defaults: { visits: 0 },
   });
   const syncedUser = await user.increment("git_visits", { by: 1 });
-  const { username, gitVisits } = syncedUser;
-  console.log(`${username}: ${gitVisits} visit(s).`);
+  const { username, git_visits } = syncedUser;
+  console.log(`${username}: ${git_visits} visit(s).`);
   console.log('host ', req.headers.host)
-  res.send(`${gitVisits} visit(s).`);
+  res.send(`${git_visits} git visit(s).`);
 });
 
 app.get("/pageview", async (req, res) => {
